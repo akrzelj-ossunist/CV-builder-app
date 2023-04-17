@@ -1,8 +1,10 @@
-import { useState } from "react";
 import { Formik, Form, Field } from "formik";
 import * as yup from "yup";
+import "../styles/personalInfo.scss";
+import { useNavigate } from "react-router-dom";
 
 const PresonalInfo: React.FC = () => {
+  const navigate = useNavigate();
   const cvInfo = {
     firstName: "",
     lastName: "",
@@ -15,17 +17,20 @@ const PresonalInfo: React.FC = () => {
     firstName: yup
       .string()
       .min(2, "Must contain min. 2 letters!")
-      .max(10, "First name too long!"),
+      .max(10, "First name too long!")
+      .required(),
     lastName: yup
       .string()
       .min(2, "Must contain min. 2 letters!")
-      .max(10, "Last name too long!"),
+      .max(10, "Last name too long!")
+      .required(),
     github: yup.string(),
     linkedIn: yup.string(),
     phone: yup
       .string()
       .min(6, "Must contain min. 6 letters!")
-      .max(11, "Phone number too long!"),
+      .max(11, "Phone number too long!")
+      .required(),
     aboutYou: yup.string().max(200, "Used max number of characters"),
   });
   return (
@@ -33,18 +38,69 @@ const PresonalInfo: React.FC = () => {
       <Formik
         initialValues={cvInfo}
         validationSchema={cvInfoVAlidation}
-        onSubmit={(values, actions) => {}}
+        onSubmit={(values, actions) => {
+          actions.setSubmitting(false);
+          navigate("/education");
+        }}
       >
         {({ errors, touched }) => {
           return (
-            <Form>
+            <Form className="personal-info-form">
               <div>
                 <label>First name:</label>
-                <Field name="firstName" placeholder="John"></Field>
+                <Field
+                  name="firstName"
+                  placeholder="John"
+                  className="field"
+                ></Field>
                 {touched.firstName && errors.firstName && (
                   <label>{errors.firstName}</label>
                 )}
               </div>
+              <div>
+                <label>Last name:</label>
+                <Field
+                  name="lastName"
+                  placeholder="Doe"
+                  className="field"
+                ></Field>
+                {touched.lastName && errors.lastName && (
+                  <label>{errors.lastName}</label>
+                )}
+              </div>
+              <div>
+                <label>Phone number:</label>
+                <Field
+                  name="phone"
+                  placeholder="+385 99 235 7633"
+                  className="field"
+                ></Field>
+                {touched.phone && errors.phone && <label>{errors.phone}</label>}
+              </div>
+              <div>
+                <label>Github:</label>
+                <Field name="github" className="field"></Field>
+                {touched.github && errors.github && (
+                  <label>{errors.github}</label>
+                )}
+              </div>
+              <div>
+                <label>LinkedIn:</label>
+                <Field name="linkedIn" className="field"></Field>
+                {touched.linkedIn && errors.linkedIn && (
+                  <label>{errors.linkedIn}</label>
+                )}
+              </div>
+              <div>
+                <label>About yourself:</label>
+                <Field name="aboutYou" className="field" as="textarea"></Field>
+                {touched.aboutYou && errors.aboutYou && (
+                  <label>{errors.aboutYou}</label>
+                )}
+              </div>
+              <button className="next" type="submit">
+                Next
+              </button>
             </Form>
           );
         }}

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Formik, Form, Field } from "formik";
 import * as yup from "yup";
 import "../styles/personalInfo.scss";
+import { Link } from "react-router-dom";
 
 interface IProject {
   projectName: string;
@@ -9,7 +10,7 @@ interface IProject {
   description?: string;
 }
 
-const Projects: React.FC = () => {
+const Experience: React.FC = () => {
   const [projects, setProjects] = useState<Array<IProject>>([]);
   const cvInfo = {
     projectName: "",
@@ -74,7 +75,12 @@ const Projects: React.FC = () => {
                   Add
                 </button>
                 <button className="next" type="button">
-                  Finish
+                  <Link
+                    style={{ textDecoration: "none", color: "white" }}
+                    to="/experience"
+                  >
+                    Next
+                  </Link>
                 </button>
               </div>
               <div className="projects">
@@ -102,4 +108,4 @@ const Projects: React.FC = () => {
   );
 };
 
-export default Projects;
+export default Experience;

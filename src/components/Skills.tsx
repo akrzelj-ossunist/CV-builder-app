@@ -1,110 +1,68 @@
 import { useState } from "react";
 import { Formik, Form, Field } from "formik";
 import * as yup from "yup";
-import "../styles/personalInfo.scss";
+import "../styles/skills.scss";
 import { Link } from "react-router-dom";
 
-interface IProject {
-  projectName: string;
-  github: string;
-  description?: string;
-}
-
 const Skills: React.FC = () => {
-  const [projects, setProjects] = useState<Array<IProject>>([]);
-  const cvInfo = {
-    projectName: "",
-    github: "",
-    description: "",
-  };
-  const cvInfoVAlidation = yup.object().shape({
-    projectName: yup
-      .string()
-      .min(2, "Must contain min. 2 letters!")
-      .max(25, "First name too long!")
-      .required(),
-    github: yup.string().required(),
-    description: yup.string().max(200, "Used max number of characters"),
+  const [skills, setSkills] = useState<{
+    job: Array<string>;
+    personal: Array<string>;
+    language: Array<string>;
+  }>({
+    job: [],
+    personal: [],
+    language: [],
   });
-  console.log(projects);
+  const arr = ["job", "personal", "language"];
+  const object = { name: "" };
+  const validation = yup.object().shape({
+    name: yup
+      .string()
+      .min(2, "Must contain at least 2 letters")
+      .max(20, "Too long"),
+  });
+  console.log(skills);
   return (
-    <>
-      <Formik
-        initialValues={cvInfo}
-        validationSchema={cvInfoVAlidation}
-        onSubmit={(values, actions) => {
-          actions.setSubmitting(false);
-          actions.resetForm();
-          setProjects([...projects!, values]);
-        }}
-      >
-        {({ errors, touched }) => {
-          return (
-            <Form className="personal-info-form">
-              <div>
-                <label>Project name:</label>
-                <Field
-                  name="projectName"
-                  placeholder="Flappy bird"
-                  className="field"
-                ></Field>
-                {touched.projectName && errors.projectName && (
-                  <label>{errors.projectName}</label>
-                )}
-              </div>
-              <div>
-                <label>Github:</label>
-                <Field name="github" className="field"></Field>
-                {touched.github && errors.github && (
-                  <label>{errors.github}</label>
-                )}
-              </div>
-              <div>
-                <label>Project description:</label>
-                <Field
-                  name="description"
-                  className="field"
-                  as="textarea"
-                ></Field>
-                {touched.description && errors.description && (
-                  <label>{errors.description}</label>
-                )}
-              </div>
-              <div className="buttons">
-                <button className="next" type="submit">
-                  Add
-                </button>
-                <button className="next" type="button">
-                  <Link
-                    style={{ textDecoration: "none", color: "white" }}
-                    to="/experience"
-                  >
-                    Next
-                  </Link>
-                </button>
-              </div>
-              <div className="projects">
-                {projects?.map((project, index) => (
-                  <div key={index} className="project">
-                    <p>{project.projectName}</p>
-                    <button
-                      className="delete"
-                      type="button"
-                      onClick={() => {
-                        projects.splice(index, 1);
-                        setProjects([...projects]);
-                      }}
-                    >
-                      Delete
-                    </button>
+    <div className="skills">
+      {arr.map((form, index) => {
+        return (
+          <Formik
+            key={index}
+            initialValues={object}
+            validationSchema={validation}
+            onSubmit={(values, actions) => {
+              actions.setSubmitting(false);
+              actions.resetForm();
+              skills[form].push(values);
+              setSkills({ ...skills });
+            }}
+          >
+            {({ errors, touched }) => {
+              return (
+                <Form className="skill">
+                  <div>
+                    <label>{form} skill:</label>
+                    <Field name="name" className="field"></Field>
+                    {touched.name && errors.name && (
+                      <label>{errors.name}</label>
+                    )}
                   </div>
-                ))}
-              </div>
-            </Form>
-          );
-        }}
-      </Formik>
-    </>
+                  <div>
+                    {skills[form].map((skill) => (
+                      <p>{skill}</p>
+                    ))}
+                  </div>
+                  <button className="next" type="submit">
+                    Add
+                  </button>
+                </Form>
+              );
+            }}
+          </Formik>
+        );
+      })}
+    </div>
   );
 };
 

@@ -4,29 +4,44 @@ import * as yup from "yup";
 import "../styles/personalInfo.scss";
 import { Link } from "react-router-dom";
 
-interface IProject {
-  projectName: string;
-  github: string;
-  description?: string;
+interface ISchools {
+  schoolName: string;
+  major: string;
+  startDate: string;
+  endDate: string;
 }
 
 const Education: React.FC = () => {
-  const [projects, setProjects] = useState<Array<IProject>>([]);
+  const [schools, setSchools] = useState<Array<ISchools>>([]);
   const cvInfo = {
-    projectName: "",
-    github: "",
-    description: "",
+    schoolName: "",
+    major: "",
+    startDate: "",
+    endDate: "",
   };
   const cvInfoVAlidation = yup.object().shape({
-    projectName: yup
+    schoolName: yup
       .string()
-      .min(2, "Must contain min. 2 letters!")
+      .min(5, "Must contain min. 5 letters!")
       .max(25, "First name too long!")
       .required(),
-    github: yup.string().required(),
-    description: yup.string().max(200, "Used max number of characters"),
+    major: yup
+      .string()
+      .min(5, "Must contain min. 5 letters!")
+      .max(25, "First name too long!")
+      .required(),
+    startDate: yup.date(),
+    endDate: yup
+      .date()
+      .when("startDate", (startDate, cvInfoVAlidation) =>
+        cvInfoVAlidation.test(
+          "is-after-start",
+          "End date must be after start date",
+          (endDate) => endDate && startDate && endDate >= startDate[0]
+        )
+      ),
   });
-  console.log(projects);
+
   return (
     <>
       <Formik
@@ -35,40 +50,47 @@ const Education: React.FC = () => {
         onSubmit={(values, actions) => {
           actions.setSubmitting(false);
           actions.resetForm();
-          setProjects([...projects!, values]);
+          setSchools([...schools!, values]);
         }}
       >
         {({ errors, touched }) => {
           return (
             <Form className="personal-info-form">
               <div>
-                <label>Project name:</label>
+                <label>School name:</label>
                 <Field
-                  name="projectName"
-                  placeholder="Flappy bird"
+                  name="schoolName"
+                  placeholder="University department of professional studies, Split"
                   className="field"
                 ></Field>
-                {touched.projectName && errors.projectName && (
-                  <label>{errors.projectName}</label>
+                {touched.schoolName && errors.schoolName && (
+                  <label>{errors.schoolName}</label>
                 )}
               </div>
               <div>
-                <label>Github:</label>
-                <Field name="github" className="field"></Field>
-                {touched.github && errors.github && (
-                  <label>{errors.github}</label>
-                )}
-              </div>
-              <div>
-                <label>Project description:</label>
+                <label>Major:</label>
                 <Field
-                  name="description"
+                  name="major"
+                  placeholder="Bachelor of Science (B.S.) - Information technology"
                   className="field"
-                  as="textarea"
                 ></Field>
-                {touched.description && errors.description && (
-                  <label>{errors.description}</label>
-                )}
+                {touched.major && errors.major && <label>{errors.major}</label>}
+              </div>
+              <div className="full-name">
+                <div>
+                  <label>Project description:</label>
+                  <Field name="startDate" className="field" type="date"></Field>
+                  {touched.startDate && errors.startDate && (
+                    <label>{errors.startDate}</label>
+                  )}
+                </div>
+                <div>
+                  <label>Project description:</label>
+                  <Field name="endDate" className="field" type="date"></Field>
+                  {touched.endDate && errors.endDate && (
+                    <label>{errors.endDate}</label>
+                  )}
+                </div>
               </div>
               <div className="buttons">
                 <button className="next" type="submit">
@@ -84,15 +106,15 @@ const Education: React.FC = () => {
                 </button>
               </div>
               <div className="projects">
-                {projects?.map((project, index) => (
+                {schools?.map((school, index) => (
                   <div key={index} className="project">
-                    <p>{project.projectName}</p>
+                    <p>{school.schoolName}</p>
                     <button
                       className="delete"
                       type="button"
                       onClick={() => {
-                        projects.splice(index, 1);
-                        setProjects([...projects]);
+                        schools.splice(index, 1);
+                        setSchools([...schools]);
                       }}
                     >
                       Delete

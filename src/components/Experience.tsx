@@ -4,29 +4,47 @@ import * as yup from "yup";
 import "../styles/personalInfo.scss";
 import { Link } from "react-router-dom";
 
-interface IProject {
-  projectName: string;
-  github: string;
-  description?: string;
+interface IJobs {
+  jobName: string;
+  firm: string;
+  description: string;
+  startDate: string;
+  endDate: string;
 }
 
 const Experience: React.FC = () => {
-  const [projects, setProjects] = useState<Array<IProject>>([]);
+  const [jobs, setJobs] = useState<Array<IJobs>>([]);
   const cvInfo = {
-    projectName: "",
-    github: "",
+    jobName: "",
+    firm: "",
     description: "",
+    startDate: "",
+    endDate: "",
   };
   const cvInfoVAlidation = yup.object().shape({
-    projectName: yup
+    jobName: yup
       .string()
-      .min(2, "Must contain min. 2 letters!")
+      .min(5, "Must contain min. 5 letters!")
       .max(25, "First name too long!")
       .required(),
-    github: yup.string().required(),
-    description: yup.string().max(200, "Used max number of characters"),
+    firm: yup
+      .string()
+      .min(5, "Must contain min. 5 letters!")
+      .max(25, "First name too long!")
+      .required(),
+    description: yup.string().max(500, "Used max number of characters"),
+    startDate: yup.date().required(),
+    endDate: yup
+      .date()
+      .when("startDate", (startDate, cvInfoVAlidation) =>
+        cvInfoVAlidation.test(
+          "is-after-start",
+          "End date must be after start date",
+          (endDate) => endDate && startDate && endDate > startDate[0]
+        )
+      ),
   });
-  console.log(projects);
+
   return (
     <>
       <Formik
@@ -35,32 +53,34 @@ const Experience: React.FC = () => {
         onSubmit={(values, actions) => {
           actions.setSubmitting(false);
           actions.resetForm();
-          setProjects([...projects!, values]);
+          setJobs([...jobs!, values]);
         }}
       >
         {({ errors, touched }) => {
           return (
             <Form className="personal-info-form">
               <div>
-                <label>Project name:</label>
+                <label>Job name:</label>
                 <Field
-                  name="projectName"
-                  placeholder="Flappy bird"
+                  name="jobName"
+                  placeholder="front-end web developer"
                   className="field"
                 ></Field>
-                {touched.projectName && errors.projectName && (
-                  <label>{errors.projectName}</label>
+                {touched.jobName && errors.jobName && (
+                  <label>{errors.jobName}</label>
                 )}
               </div>
               <div>
-                <label>Github:</label>
-                <Field name="github" className="field"></Field>
-                {touched.github && errors.github && (
-                  <label>{errors.github}</label>
-                )}
+                <label>Firm:</label>
+                <Field
+                  name="firm"
+                  placeholder="IT firm"
+                  className="field"
+                ></Field>
+                {touched.firm && errors.firm && <label>{errors.firm}</label>}
               </div>
               <div>
-                <label>Project description:</label>
+                <label>Job description:</label>
                 <Field
                   name="description"
                   className="field"
@@ -70,6 +90,22 @@ const Experience: React.FC = () => {
                   <label>{errors.description}</label>
                 )}
               </div>
+              <div className="full-name">
+                <div>
+                  <label>Project description:</label>
+                  <Field name="startDate" className="field" type="date"></Field>
+                  {touched.startDate && errors.startDate && (
+                    <label>{errors.startDate}</label>
+                  )}
+                </div>
+                <div>
+                  <label>Project description:</label>
+                  <Field name="endDate" className="field" type="date"></Field>
+                  {touched.endDate && errors.endDate && (
+                    <label>{errors.endDate}</label>
+                  )}
+                </div>
+              </div>
               <div className="buttons">
                 <button className="next" type="submit">
                   Add
@@ -77,22 +113,22 @@ const Experience: React.FC = () => {
                 <button className="next" type="button">
                   <Link
                     style={{ textDecoration: "none", color: "white" }}
-                    to="/experience"
+                    to="/skills"
                   >
                     Next
                   </Link>
                 </button>
               </div>
               <div className="projects">
-                {projects?.map((project, index) => (
+                {jobs?.map((job, index) => (
                   <div key={index} className="project">
-                    <p>{project.projectName}</p>
+                    <p>{job.jobName}</p>
                     <button
                       className="delete"
                       type="button"
                       onClick={() => {
-                        projects.splice(index, 1);
-                        setProjects([...projects]);
+                        jobs.splice(index, 1);
+                        setJobs([...jobs]);
                       }}
                     >
                       Delete

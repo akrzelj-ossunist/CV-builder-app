@@ -2,9 +2,15 @@ import { Formik, Form, Field } from "formik";
 import * as yup from "yup";
 import "../styles/personalInfo.scss";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const PresonalInfo: React.FC = () => {
   const navigate = useNavigate();
+  const [img, setImg] = useState("none");
+  const handleImageChange = (e: any) => {
+    setImg(URL.createObjectURL(e.target.files[0]));
+  };
+
   const cvInfo = {
     firstName: "",
     lastName: "",
@@ -46,27 +52,29 @@ const PresonalInfo: React.FC = () => {
         {({ errors, touched }) => {
           return (
             <Form className="personal-info-form">
-              <div>
-                <label>First name:</label>
-                <Field
-                  name="firstName"
-                  placeholder="John"
-                  className="field"
-                ></Field>
-                {touched.firstName && errors.firstName && (
-                  <label>{errors.firstName}</label>
-                )}
-              </div>
-              <div>
-                <label>Last name:</label>
-                <Field
-                  name="lastName"
-                  placeholder="Doe"
-                  className="field"
-                ></Field>
-                {touched.lastName && errors.lastName && (
-                  <label>{errors.lastName}</label>
-                )}
+              <div className="full-name">
+                <div>
+                  <label>First name:</label>
+                  <Field
+                    name="firstName"
+                    placeholder="John"
+                    className="field"
+                  ></Field>
+                  {touched.firstName && errors.firstName && (
+                    <label>{errors.firstName}</label>
+                  )}
+                </div>
+                <div>
+                  <label>Last name:</label>
+                  <Field
+                    name="lastName"
+                    placeholder="Doe"
+                    className="field"
+                  ></Field>
+                  {touched.lastName && errors.lastName && (
+                    <label>{errors.lastName}</label>
+                  )}
+                </div>
               </div>
               <div>
                 <label>Phone number:</label>
@@ -97,6 +105,9 @@ const PresonalInfo: React.FC = () => {
                 {touched.aboutYou && errors.aboutYou && (
                   <label>{errors.aboutYou}</label>
                 )}
+              </div>
+              <div>
+                <input type="file" onChange={handleImageChange} />
               </div>
               <button className="next" type="submit">
                 Next

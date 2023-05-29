@@ -6,8 +6,18 @@ import SideBgImage from "./assets/SideBgImage";
 import Education from "./components/Education";
 import Experience from "./components/Experience";
 import Skills from "./components/Skills";
+import { useState } from "react";
 
 function App() {
+  const [info, setInfo] = useState({
+    personalInfo: {},
+    education: [],
+    experience: [],
+    jobSkills: [],
+    personalSkills: [],
+    languageSkills: [],
+    projects: {},
+  });
   const location = useLocation();
   const navigation = [
     {
@@ -34,30 +44,30 @@ function App() {
   const routes = useRoutes([
     {
       path: "/",
-      element: <PresonalInfo />,
+      element: <PresonalInfo info={info} setInfo={setInfo} />,
     },
     {
       path: "/education",
-      element: <Education />,
+      element: <Education info={info} setInfo={setInfo} />,
     },
     {
       path: "/experience",
-      element: <Experience />,
+      element: <Experience info={info} setInfo={setInfo} />,
     },
     {
       path: "/skills",
-      element: <Skills />,
+      element: <Skills info={info} setInfo={setInfo} />,
     },
     {
       path: "/projects",
-      element: <Projects />,
+      element: <Projects info={info} setInfo={setInfo} />,
     },
     {
       path: "*",
       element: <div>Not found</div>,
     },
   ]);
-
+  console.log(info);
   return (
     <div className="container">
       <div className="content">

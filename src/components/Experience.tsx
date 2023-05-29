@@ -12,7 +12,10 @@ interface IJobs {
   endDate: string;
 }
 
-const Experience: React.FC = () => {
+const Experience: React.FC<{ info: any; setInfo: (info: any) => void }> = ({
+  info,
+  setInfo,
+}) => {
   const [jobs, setJobs] = useState<Array<IJobs>>([]);
   const cvInfo = {
     jobName: "",
@@ -114,6 +117,9 @@ const Experience: React.FC = () => {
                   <Link
                     style={{ textDecoration: "none", color: "white" }}
                     to="/skills"
+                    onClick={() => {
+                      setInfo({ ...info, experience: jobs });
+                    }}
                   >
                     Next
                   </Link>

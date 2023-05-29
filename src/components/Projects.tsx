@@ -9,7 +9,10 @@ interface IProject {
   description?: string;
 }
 
-const Projects: React.FC = () => {
+const Projects: React.FC<{ info: any; setInfo: (info: any) => void }> = ({
+  info,
+  setInfo,
+}) => {
   const [projects, setProjects] = useState<Array<IProject>>([]);
   const cvInfo = {
     projectName: "",
@@ -73,7 +76,13 @@ const Projects: React.FC = () => {
                 <button className="next" type="submit">
                   Add
                 </button>
-                <button className="next" type="button">
+                <button
+                  className="next"
+                  type="button"
+                  onClick={() => {
+                    setInfo({ ...info, projects: projects });
+                  }}
+                >
                   Finish
                 </button>
               </div>

@@ -4,7 +4,10 @@ import "../styles/personalInfo.scss";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
-const PresonalInfo: React.FC = () => {
+const PresonalInfo: React.FC<{ info: any; setInfo: (info: any) => void }> = ({
+  info,
+  setInfo,
+}) => {
   const navigate = useNavigate();
   const [img, setImg] = useState("none");
   const handleImageChange = (e: any) => {
@@ -46,6 +49,7 @@ const PresonalInfo: React.FC = () => {
         validationSchema={cvInfoVAlidation}
         onSubmit={(values, actions) => {
           actions.setSubmitting(false);
+          setInfo({ ...info, personalInfo: values });
           navigate("/education");
         }}
       >

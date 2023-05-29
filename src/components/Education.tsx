@@ -11,7 +11,10 @@ interface ISchools {
   endDate: string;
 }
 
-const Education: React.FC = () => {
+const Education: React.FC<{ info: any; setInfo: (info: any) => void }> = ({
+  info,
+  setInfo,
+}) => {
   const [schools, setSchools] = useState<Array<ISchools>>([]);
   const cvInfo = {
     schoolName: "",
@@ -100,6 +103,9 @@ const Education: React.FC = () => {
                   <Link
                     style={{ textDecoration: "none", color: "white" }}
                     to="/experience"
+                    onClick={() => {
+                      setInfo({ ...info, education: schools });
+                    }}
                   >
                     Next
                   </Link>

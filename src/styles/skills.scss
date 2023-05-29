@@ -5,7 +5,44 @@
         width: 100%;
         flex-direction: column;
         justify-content: center;
-        div{
+        margin-top: 30px;
+        .skill-list{
+            display: flex;
+            margin-left: 40px;
+            margin-bottom: 5px;
+            width: 530px;
+            overflow-x: auto;
+            &::-webkit-scrollbar{
+                background: white;
+                width: 4px;
+                height: 8px;
+            }
+            &::-webkit-scrollbar-thumb {
+                background: gray;
+                border-radius: 10px;
+              }
+            .skill-name{
+                display: flex;
+                background-color: slategrey;
+                color: white;
+                border-radius: 10px;
+                margin: 0 10px 5px 0;
+                p{
+                    padding: 3px 7px 3px 7px;
+                    margin: 0;
+                }                
+                .clear-skill{
+                    margin: 0;
+                    background-color: inherit;
+                    color: red;
+                    border: none;
+                    cursor: pointer;
+                    font-weight: bold;
+                    border-radius: 10px;
+                }
+            }
+        }
+        .skill-field{
             display: flex;
             flex-direction: column;
             margin: 5px 60px 5px 40px;
@@ -30,7 +67,7 @@
             border-radius: 10px;
             background-color: #16FF00;
             border: 1px solid #16FF00;
-            margin: 15px 60px 5px 40px;
+            margin: 0px 60px 5px 40px;
             cursor: pointer;
             transition: ease-in-out 300ms;
             color: white;

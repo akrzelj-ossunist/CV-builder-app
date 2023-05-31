@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Formik, Form, Field } from "formik";
 import * as yup from "yup";
 import "../styles/personalInfo.scss";
+import Back from "../assets/Back";
+import { Link } from "react-router-dom";
 
 interface IProject {
   projectName: string;
@@ -28,9 +30,9 @@ const Projects: React.FC<{ info: any; setInfo: (info: any) => void }> = ({
     github: yup.string().required(),
     description: yup.string().max(200, "Used max number of characters"),
   });
-  console.log(projects);
   return (
     <>
+      <Back path={"/skills"} />
       <Formik
         initialValues={cvInfo}
         validationSchema={cvInfoVAlidation}
@@ -73,7 +75,11 @@ const Projects: React.FC<{ info: any; setInfo: (info: any) => void }> = ({
                 )}
               </div>
               <div className="buttons">
-                <button className="next" type="submit">
+                <button
+                  className="next"
+                  type="submit"
+                  style={{ background: "blue" }}
+                >
                   Add
                 </button>
                 <button
@@ -83,7 +89,12 @@ const Projects: React.FC<{ info: any; setInfo: (info: any) => void }> = ({
                     setInfo({ ...info, projects: projects });
                   }}
                 >
-                  Finish
+                  <Link
+                    to="/profile"
+                    style={{ textDecoration: "none", color: "white" }}
+                  >
+                    Finish
+                  </Link>
                 </button>
               </div>
               <div className="projects">

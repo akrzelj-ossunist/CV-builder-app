@@ -3,6 +3,7 @@ import { Formik, Form, Field } from "formik";
 import * as yup from "yup";
 import "../styles/personalInfo.scss";
 import { Link } from "react-router-dom";
+import Back from "../assets/Back";
 
 interface ISchools {
   schoolName: string;
@@ -15,7 +16,7 @@ const Education: React.FC<{ info: any; setInfo: (info: any) => void }> = ({
   info,
   setInfo,
 }) => {
-  const [schools, setSchools] = useState<Array<ISchools>>([]);
+  const [schools, setSchools] = useState<Array<ISchools>>(info.education);
   const cvInfo = {
     schoolName: "",
     major: "",
@@ -47,6 +48,7 @@ const Education: React.FC<{ info: any; setInfo: (info: any) => void }> = ({
 
   return (
     <>
+      <Back path={"/"} />
       <Formik
         initialValues={cvInfo}
         validationSchema={cvInfoVAlidation}
@@ -96,7 +98,11 @@ const Education: React.FC<{ info: any; setInfo: (info: any) => void }> = ({
                 </div>
               </div>
               <div className="buttons">
-                <button className="next" type="submit">
+                <button
+                  className="next"
+                  type="submit"
+                  style={{ background: "blue" }}
+                >
                   Add
                 </button>
                 <button className="next" type="button">

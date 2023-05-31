@@ -14,14 +14,7 @@ const PresonalInfo: React.FC<{ info: any; setInfo: (info: any) => void }> = ({
     setImg(URL.createObjectURL(e.target.files[0]));
   };
 
-  const cvInfo = {
-    firstName: "",
-    lastName: "",
-    github: "",
-    linkedIn: "",
-    phone: "",
-    aboutYou: "",
-  };
+  const cvInfo = info.personalInfo;
   const cvInfoVAlidation = yup.object().shape({
     firstName: yup
       .string()
@@ -38,7 +31,7 @@ const PresonalInfo: React.FC<{ info: any; setInfo: (info: any) => void }> = ({
     phone: yup
       .string()
       .min(6, "Must contain min. 6 letters!")
-      .max(11, "Phone number too long!")
+      .max(13, "Phone number too long!")
       .required(),
     aboutYou: yup.string().max(200, "Used max number of characters"),
   });

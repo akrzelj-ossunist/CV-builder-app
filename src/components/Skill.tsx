@@ -9,7 +9,7 @@ const Skill: React.FC<{
   info: any;
   setInfo: (info: any) => void;
 }> = ({ form, info, setInfo }) => {
-  const [skills, setSkills] = useState(["asfa", "safasf"]);
+  const [skills, setSkills] = useState(info[form]);
   const object = { name: "" };
   const validation = yup.object().shape({
     name: yup
@@ -37,7 +37,7 @@ const Skill: React.FC<{
           return (
             <Form className="skill">
               <div className="skill-field">
-                <label>{form} skill:</label>
+                <label>{form.substring(0, form.length - 6)} skill:</label>
                 <Field name="name" className="field"></Field>
                 {touched.name && errors.name && <label>{errors.name}</label>}
               </div>
@@ -56,13 +56,15 @@ const Skill: React.FC<{
                 ))}
               </div>
               <button
+                style={{ background: "blue" }}
                 className="next"
                 type="submit"
                 onClick={() => {
-                  form === "job" && setInfo({ ...info, jobSkills: skills });
-                  form === "personal" &&
+                  form === "jobSkills" &&
+                    setInfo({ ...info, jobSkills: skills });
+                  form === "personalSkills" &&
                     setInfo({ ...info, personalSkills: skills });
-                  form === "language" &&
+                  form === "languageSkills" &&
                     setInfo({ ...info, languageSkills: skills });
                 }}
               >

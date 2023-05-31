@@ -7,10 +7,18 @@ import Education from "./components/Education";
 import Experience from "./components/Experience";
 import Skills from "./components/Skills";
 import { useState } from "react";
+import Profile from "./Profile";
 
 function App() {
   const [info, setInfo] = useState({
-    personalInfo: {},
+    personalInfo: {
+      firstName: "",
+      lastName: "",
+      github: "",
+      linkedIn: "",
+      phone: "",
+      aboutYou: "",
+    },
     education: [],
     experience: [],
     jobSkills: [],
@@ -69,33 +77,37 @@ function App() {
   ]);
   console.log(info);
   return (
-    <div className="container">
-      <div className="content">
-        <div className="side-nav">
-          <div className="side-nav-btns">
-            {navigation.map((link, index) => {
-              return (
-                <Link
-                  key={index}
-                  to={link.href}
-                  className={
-                    location.pathname === link.href
-                      ? "side-nav-btn btn-active"
-                      : "side-nav-btn"
-                  }
-                >
-                  <label>{index + 1}</label>
-                  <p>{link.name}</p>
-                </Link>
-              );
-            })}
+    <>
+      {location.pathname === "/profile" ? (
+        <Profile info={info} />
+      ) : (
+        <div className="container">
+          <div className="content">
+            <div className="side-nav">
+              <div className="side-nav-btns">
+                {navigation.map((link, index) => {
+                  return (
+                    <div
+                      key={index}
+                      className={
+                        location.pathname === link.href
+                          ? "side-nav-btn btn-active"
+                          : "side-nav-btn"
+                      }
+                    >
+                      <label>{index + 1}</label>
+                      <p>{link.name}</p>
+                    </div>
+                  );
+                })}
+              </div>
+              <SideBgImage />
+            </div>
+            {routes}
           </div>
-          <SideBgImage />
         </div>
-
-        {routes}
-      </div>
-    </div>
+      )}
+    </>
   );
 }
 

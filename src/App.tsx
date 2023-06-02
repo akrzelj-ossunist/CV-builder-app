@@ -11,6 +11,7 @@ import Profile from "./Profile";
 
 function App() {
   const [info, setInfo] = useState({
+    image: "",
     personalInfo: {
       firstName: "",
       lastName: "",

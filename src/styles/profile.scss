@@ -1,0 +1,62 @@
+#content{
+    display: flex;
+    justify-content: center;
+    background-color: rgb(248 250 252);
+    width: 100vw;
+    .profile-container{
+        width: 940px;
+        .navigation{
+            display: flex;
+            justify-content: space-between;
+        }
+        .personal-info{
+            box-shadow: 0 1px 2px 0 rgba(0,0,0,.1);
+            background-color: white;
+            display: flex;
+            justify-content: space-around;
+            border-radius: 10px;
+            padding: 2rem;
+            .description{
+                font-size: 1.5rem;
+                line-height: 2rem;
+                font-weight: 600;
+                margin-left: 1.5rem;
+            }
+            img{
+                border-radius: 100%;
+            }
+        }
+        .experience{
+            .job{
+                margin: 20px 100px 20px 100px;
+                box-shadow: 0 1px 2px 0 rgba(0,0,0,.1);
+                background-color: white;
+                border-radius: 10px;
+                padding: 1rem 2rem 0.5rem 2rem;
+                position: relative;
+                .job-title{
+                    font-size: 1.5rem;
+                    font-weight: bold;
+                    margin: 0;
+                }
+                .job-firm{
+                    font-size: 1.25rem;
+                    font-weight: 600;
+                    margin: 8px 0 8px 0;
+                }
+                .job-description{
+
+                }
+                .date{
+                    position: absolute;
+                    top: 0.5rem;
+                    right: 2rem;
+                    display: flex;
+                    color: rgb(107 114 128);
+                    font-size: 0.875rem;
+                    font-weight: 600;
+                }
+            }
+        }
+    }
+}

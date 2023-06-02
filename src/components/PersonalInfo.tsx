@@ -2,18 +2,17 @@ import { Formik, Form, Field } from "formik";
 import * as yup from "yup";
 import "../styles/personalInfo.scss";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const PresonalInfo: React.FC<{ info: any; setInfo: (info: any) => void }> = ({
   info,
   setInfo,
 }) => {
   const navigate = useNavigate();
-  const [img, setImg] = useState("none");
+  const [img, setImg] = useState(info.image);
   const handleImageChange = (e: any) => {
     setImg(URL.createObjectURL(e.target.files[0]));
   };
-
   const cvInfo = info.personalInfo;
   const cvInfoVAlidation = yup.object().shape({
     firstName: yup
@@ -42,7 +41,7 @@ const PresonalInfo: React.FC<{ info: any; setInfo: (info: any) => void }> = ({
         validationSchema={cvInfoVAlidation}
         onSubmit={(values, actions) => {
           actions.setSubmitting(false);
-          setInfo({ ...info, personalInfo: values });
+          setInfo({ ...info, personalInfo: values, image: img });
           navigate("/education");
         }}
       >

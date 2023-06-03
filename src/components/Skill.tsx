@@ -15,7 +15,7 @@ const Skill: React.FC<{
     name: yup
       .string()
       .min(2, "Must contain at least 2 letters")
-      .max(20, "Too long"),
+      .max(40, "Too long"),
   });
   const clearSkill = (skill: string) => {
     const index = skills.indexOf(skill);

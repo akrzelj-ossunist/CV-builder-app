@@ -29,12 +29,12 @@ const Experience: React.FC<{ info: any; setInfo: (info: any) => void }> = ({
     jobName: yup
       .string()
       .min(5, "Must contain min. 5 letters!")
-      .max(25, "First name too long!")
+      .max(55, "First name too long!")
       .required(),
     firm: yup
       .string()
       .min(5, "Must contain min. 5 letters!")
-      .max(25, "First name too long!")
+      .max(45, "First name too long!")
       .required(),
     description: yup.string().max(500, "Used max number of characters"),
     startDate: yup.date().required(),

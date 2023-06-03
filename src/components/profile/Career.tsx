@@ -34,6 +34,23 @@ const Career: React.FC<{ education: any; experience: any; skills: any }> = ({
           );
         })}
       </div>
+      <div className="skills">
+        <div className="skill-list">
+          {skills.job.map((skill: string, index: number) => (
+            <p key={index}>-{skill}</p>
+          ))}
+        </div>
+        <div className="skill-list">
+          {skills.personal.map((skill: string, index: number) => (
+            <p key={index}>-{skill}</p>
+          ))}
+        </div>
+        <div className="skill-list">
+          {skills.language.map((skill: string, index: number) => (
+            <p key={index}>-{skill}</p>
+          ))}
+        </div>
+      </div>
     </>
   );
 };

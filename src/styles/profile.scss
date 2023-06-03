@@ -5,10 +5,32 @@
     width: 100vw;
     .profile-container{
         width: 940px;
-        .navigation{
-            display: flex;
-            justify-content: space-between;
-        }
+        .name{
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                box-shadow: 0 1px 2px 0 rgba(0,0,0,.1);
+                background-color: white;
+                border-radius: 10px;
+                margin: 10px 0 10px 0;
+                padding: 0 2rem 0 2rem;
+                font-size: 1.25rem;
+                font-weight: 600;
+                margin: 8px 0 8px 0;
+                .links{
+                    font-size: 1rem;
+                    .link{
+                        display: flex;
+                        align-items: center;
+                        p{
+                            margin-left: 10px;
+                        }
+                    }
+                }
+                .full-name{
+                    margin: 4px 0 0 0;
+                }
+            }
         .personal-info{
             box-shadow: 0 1px 2px 0 rgba(0,0,0,.1);
             background-color: white;
@@ -24,6 +46,17 @@
             }
             img{
                 border-radius: 100%;
+            }
+        }
+        .skills{
+            display: flex;
+            justify-content: space-around;
+            .skill-list{
+                box-shadow: 0 1px 2px 0 rgba(0,0,0,.1);
+                background-color: white;
+                border-radius: 10px;
+                padding-left: 1rem;
+                width: 200px;
             }
         }
         .experience{

@@ -27,12 +27,12 @@ const Education: React.FC<{ info: any; setInfo: (info: any) => void }> = ({
     schoolName: yup
       .string()
       .min(5, "Must contain min. 5 letters!")
-      .max(25, "First name too long!")
+      .max(60, "First name too long!")
       .required(),
     major: yup
       .string()
       .min(5, "Must contain min. 5 letters!")
-      .max(25, "First name too long!")
+      .max(60, "First name too long!")
       .required(),
     startDate: yup.date(),
     endDate: yup
